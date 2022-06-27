@@ -21,12 +21,6 @@ jobs:
     - name: Install packages
       run: yarn
     
-    - name: Copy test env
-      run: 'echo -e "${{secrets.ENV_TEST}}" > .env.test'
-    
-    - name: Run tests
-      run: yarn test
-    
     - name: Copy env
       run: 'echo -e "${{secrets.ENV}}" > .env.production'
     
