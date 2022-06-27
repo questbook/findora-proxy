@@ -1,0 +1,30 @@
+service: qb-service-findora-proxy
+
+frameworkVersion: "2"
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: v0
+  region: ap-south-1
+  apiName: ${self:service}
+  versionFunctions: false
+  memorySize: 256
+  architecture: arm64
+
+functions:
+  json-rpc:
+    handler: src/functions/json-rpc.handler
+    timeout: 10
+    reservedConcurrency: 10
+    events:
+      - http:
+          path: /findora
+          method: POST
+          cors: true
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-dotenv-plugin
